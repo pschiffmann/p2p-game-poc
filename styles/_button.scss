@@ -1,0 +1,15 @@
+button {
+  border: 2px solid #fff;
+  padding: 2px 4px;
+  border-radius: 2px;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  text-transform: inherit;
+
+  &:hover {
+    background: #fff;
+    color: #06102e;
+  }
+}

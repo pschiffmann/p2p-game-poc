@@ -1,0 +1,60 @@
+.system {
+  border: 2px solid #fff;
+  margin-bottom: 12px;
+
+  border-radius: 2px;
+  font-size: 10px;
+
+  & > * {
+    margin: 4px;
+  }
+
+  &__charge {
+    height: 18px;
+    border: 2px solid #fff;
+    border-radius: 2px;
+    background: linear-gradient(90deg, blue 0 50%, #fff) no-repeat;
+    background-size: 200%;
+    animation: system-charge var(--speed) linear infinite;
+    animation-play-state: var(--animation-play-state);
+  }
+
+  &__energy {
+    height: 18px;
+    display: inline-flex;
+    flex-direction: row-reverse;
+  }
+
+  &__energy-bar {
+    width: 24px;
+    border: 2px solid #fff;
+
+    &:first-child {
+      border-radius: 0 2px 2px 0;
+    }
+    &:last-child {
+      border-radius: 2px 0 0 2px;
+    }
+    &:not(:last-child) {
+      border-left-width: 0;
+    }
+
+    &:hover,
+    &:hover ~ * {
+      background: #1688dd;
+    }
+  }
+
+  &__action {
+    display: block;
+  }
+}
+
+@keyframes system-charge {
+  from {
+    background-position: 200%;
+  }
+  to {
+    background-position: 100%;
+  }
+}

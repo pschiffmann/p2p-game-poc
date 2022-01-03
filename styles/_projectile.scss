@@ -1,0 +1,56 @@
+.projectile {
+  &--ltr {
+    --x-start: calc(1px * var(--x-left));
+    --y-start: calc(1px * var(--y-left));
+    --x-end: calc(1px * var(--x-right));
+    --y-end: calc(1px * var(--y-right));
+    --rotation: 0deg;
+  }
+  &--rtl {
+    --x-start: calc(1px * var(--x-right));
+    --y-start: calc(1px * var(--y-right));
+    --x-end: calc(1px * var(--x-left));
+    --y-end: calc(1px * var(--y-left));
+    --rotation: 180deg;
+  }
+
+  position: absolute;
+  image-rendering: pixelated;
+  transform: translate3d(-50%, -50%, 0);
+  animation: projectile calc(1s * var(--time-to-impact)) infinite linear both;
+  animation-play-state: var(--animation-play-state);
+
+  &--ion {
+    width: 128px;
+    height: 128px;
+  }
+  &--laser {
+    width: 64px;
+    height: 64px;
+  }
+  &--rocket {
+    width: 192px;
+    height: 192px;
+  }
+}
+
+@keyframes projectile {
+  from {
+    transform: translate3d(
+      calc(var(--x-start) - 50%),
+      calc(var(--y-start) - 50%),
+      0
+    );
+    // left: var(--x-start);
+    // top: var(--y-start);
+  }
+  to {
+    transform: translate3d(
+      calc(var(--x-end) - 50%),
+      calc(var(--y-end) - 50%),
+      0
+    );
+    // left: var(--x-end);
+    // top: var(--y-end);
+  }
+}

@@ -1,0 +1,38 @@
+.ship {
+  position: absolute;
+
+  width: 512px;
+  height: 512px;
+  // outline: 2px solid red;
+
+  &__base {
+    width: 100%;
+    height: 100%;
+    transform: rotateZ(270deg);
+    image-rendering: pixelated;
+  }
+
+  &__name {
+    position: absolute;
+    padding: 2px;
+    font-size: 8px;
+    transform: rotateZ(270deg);
+    transform-origin: top left;
+  }
+}
+
+.ship-a {
+  .ship__name {
+    top: 356px;
+    left: 288px;
+    background: #331b2c;
+  }
+}
+
+.ship-b {
+  .ship__name {
+    top: 294px;
+    left: 334px;
+    background: #010a08;
+  }
+}
