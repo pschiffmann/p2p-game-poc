@@ -17,6 +17,7 @@ export const ShipStatus: React.FC<ShipStatusProps> = ({
     <div className={`${className} ship-status`}>
       <div className="ship-status__name">{name}</div>
       <div className="ship-status__shield">SHIELD HP: {shieldHp}</div>
+      <div className="ship-status__dodge">DODGE: 15%</div>
       <div className="ship-status__energy">
         {new Array(maxEnergy).fill(0).map((_, i) => (
           <div

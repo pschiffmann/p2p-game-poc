@@ -1,3 +1,6 @@
+import { SystemType } from "../shared/protocol";
+import { calculateCurrentSpeed, systemAttributes } from "../shared/systems";
+
 declare module "csstype" {
   interface Properties {
     readonly "--speed"?: string;
@@ -5,11 +8,8 @@ declare module "csstype" {
 }
 
 export interface SystemProps {
-  readonly name: string;
+  readonly type: SystemType;
   readonly hp: number;
-  readonly speed?: number;
-  readonly customAttributes?: { readonly [name: string]: string };
-  readonly maxEnergy: number;
   readonly currentEnergy: number;
   setEnergy?(): void;
   attack?(): void;
@@ -17,32 +17,38 @@ export interface SystemProps {
 }
 
 export const System: React.FC<SystemProps> = ({
-  name,
+  type,
   hp,
-  speed,
-  customAttributes,
-  maxEnergy,
   currentEnergy,
   setEnergy,
   attack,
   deactivate,
 }) => {
+  const attributes = systemAttributes[type];
+  const maxEnergy = attributes["MAX ENERGY"];
+  const speed = calculateCurrentSpeed(type, currentEnergy);
   return (
     <div className="system">
-      <div className="system__name">{name}</div>
+      <div className="system__name">{type}</div>
+      <div className="system__details">
+        <div className="system__details-icon">i</div>
+        <div className="system__details-popover">
+          {Object.entries(attributes).map(([name, value]) => (
+            <div key={name} className="system__details-attribute">
+              {name}:{" "}
+              {name === "BASE DODGE" || name === "DODGE/ENERGY"
+                ? `${100 * value}%`
+                : value}
+            </div>
+          ))}
+        </div>
+      </div>
       <div className="system__health">HP: {hp}</div>
-      {speed && (
-        <>
-          <div className="system__speed">SPEED: {speed}s</div>
-          <div className="system__charge" style={{ "--speed": `${speed}s` }} />
-        </>
+      {speed !== 0 && (
+        <div className="system__charge" style={{ "--speed": `${speed}s` }}>
+          {speed}s
+        </div>
       )}
-      {customAttributes &&
-        Object.entries(customAttributes).map(([name, value]) => (
-          <div key={name} className="system__attribute">
-            {name}: {value}
-          </div>
-        ))}
       <div
         className={
           "system__energy" + (setEnergy ? "" : " system__energy--readonly")
