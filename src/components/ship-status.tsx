@@ -23,7 +23,7 @@ export const ShipStatus: React.FC<ShipStatusProps> = ({
             key={i}
             className={
               "ship-status__energy-bar" +
-              (i >= unusedEnergy ? " ship-status__energy-bar--unused" : "")
+              (i < unusedEnergy ? " ship-status__energy-bar--active" : "")
             }
           />
         ))}

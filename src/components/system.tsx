@@ -10,6 +10,8 @@ export interface SystemProps {
   readonly speed?: number;
   readonly customAttributes?: { readonly [name: string]: string };
   readonly maxEnergy: number;
+  readonly currentEnergy: number;
+  setEnergy?(): void;
   attack?(): void;
   deactivate?(): void;
 }
@@ -20,6 +22,8 @@ export const System: React.FC<SystemProps> = ({
   speed,
   customAttributes,
   maxEnergy,
+  currentEnergy,
+  setEnergy,
   attack,
   deactivate,
 }) => {
@@ -29,7 +33,7 @@ export const System: React.FC<SystemProps> = ({
       <div className="system__health">HP: {hp}</div>
       {speed && (
         <>
-          <div className="system__speed">Speed: {speed}s</div>
+          <div className="system__speed">SPEED: {speed}s</div>
           <div className="system__charge" style={{ "--speed": `${speed}s` }} />
         </>
       )}
@@ -39,10 +43,23 @@ export const System: React.FC<SystemProps> = ({
             {name}: {value}
           </div>
         ))}
-      <div className="system__energy">
-        {new Array(maxEnergy).fill(0).map((_, i) => (
-          <div key={i} className="system__energy-bar" />
-        ))}
+      <div
+        className={
+          "system__energy" + (setEnergy ? "" : " system__energy--readonly")
+        }
+      >
+        {new Array(maxEnergy).fill(0).map((_, i) => {
+          const index = maxEnergy - i;
+          return (
+            <div
+              key={i}
+              className={
+                "system__energy-bar" +
+                (index <= currentEnergy ? " system__energy-bar--active" : "")
+              }
+            />
+          );
+        })}
       </div>
       {attack && (
         <button className="system__action" onClick={attack}>

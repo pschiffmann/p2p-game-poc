@@ -23,6 +23,14 @@
     height: 18px;
     display: inline-flex;
     flex-direction: row-reverse;
+
+    &--readonly {
+      pointer-events: none;
+    }
+
+    &:not(:hover) .system__energy-bar--active {
+      background: #1688dd;
+    }
   }
 
   &__energy-bar {

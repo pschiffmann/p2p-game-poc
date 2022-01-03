@@ -15,10 +15,9 @@
   &__energy-bar {
     width: 24px;
     border: 2px solid #fff;
-    background: #1688dd;
 
-    &--unused {
-      background: transparent;
+    &--active {
+      background: #1688dd;
     }
 
     &:first-child {

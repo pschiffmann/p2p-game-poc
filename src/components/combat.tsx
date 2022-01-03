@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Projectile } from "./projectile";
-import { ShipA } from "./ship-a";
-import { ShipB } from "./ship-b";
+import { Ship } from "./ship";
 import { ShipStatus } from "./ship-status";
 import { System } from "./system";
 
@@ -10,14 +9,24 @@ export const Combat: React.FC = () => {
 
   return (
     <div className={"combat" + (paused ? " combat--paused" : "")}>
-      <ShipA className="combat__ship combat__ship--mine" name="UNSINKABLE" />
-      <ShipB className="combat__ship combat__ship--enemy" name="NORMANDY" />
+      <Ship
+        className="combat__ship combat__ship--mine"
+        type="a"
+        name="UNSINKABLE"
+      />
+      <Ship
+        className="combat__ship combat__ship--enemy"
+        type="b"
+        name="NORMANDY"
+      />
       <div className="combat__systems combat__systems--mine">
         <System
           name="ION CANNON"
           hp={100}
           speed={2.5}
           maxEnergy={4}
+          currentEnergy={3}
+          setEnergy={() => {}}
           attack={() => {}}
           deactivate={() => {}}
         />
@@ -26,6 +35,8 @@ export const Combat: React.FC = () => {
           hp={100}
           speed={3.5}
           maxEnergy={3}
+          currentEnergy={3}
+          setEnergy={() => {}}
           attack={() => {}}
           deactivate={() => {}}
         />
@@ -34,6 +45,8 @@ export const Combat: React.FC = () => {
           hp={100}
           speed={5}
           maxEnergy={6}
+          currentEnergy={3}
+          setEnergy={() => {}}
           deactivate={() => {}}
         />
         <System
@@ -41,18 +54,39 @@ export const Combat: React.FC = () => {
           hp={100}
           customAttributes={{ DODGE: "15%" }}
           maxEnergy={3}
+          currentEnergy={3}
+          setEnergy={() => {}}
           deactivate={() => {}}
         />
       </div>
       <div className="combat__systems combat__systems--enemy">
-        <System name="LASER BATTERY" hp={100} speed={0.8} maxEnergy={5} />
-        <System name="LASER BATTERY" hp={100} speed={0.8} maxEnergy={5} />
-        <System name="SHIELD GENERATOR" hp={100} speed={5} maxEnergy={6} />
+        <System
+          name="LASER BATTERY"
+          hp={100}
+          speed={0.8}
+          maxEnergy={5}
+          currentEnergy={3}
+        />
+        <System
+          name="LASER BATTERY"
+          hp={100}
+          speed={0.8}
+          maxEnergy={5}
+          currentEnergy={3}
+        />
+        <System
+          name="SHIELD GENERATOR"
+          hp={100}
+          speed={5}
+          maxEnergy={6}
+          currentEnergy={3}
+        />
         <System
           name="THRUSTERS"
           hp={100}
           customAttributes={{ DODGE: "5%" }}
           maxEnergy={3}
+          currentEnergy={3}
         />
       </div>
       <ShipStatus
