@@ -4,40 +4,43 @@ export const systemAttributes = {
   "ION CANNON": {
     "HULL DMG": 10,
     "SHIELD DMG": 40,
-    "BASE SPEED": 5,
-    "SPEED/ENERGY": -0.5,
+    "PROJECTILE SPEED": 1.5,
+    "RELOAD SPEED": 5,
+    "RLD. SP./ENERGY": -0.5,
     "MAX ENERGY": 4,
     "MAX HP": 100,
   },
   "ROCKET LAUNCHER": {
     "HULL DMG": 60,
     "SHIELD DMG": 15,
-    "BASE SPEED": 8,
-    "SPEED/ENERGY": -0.5,
+    "PROJECTILE SPEED": 2.5,
+    "RELOAD SPEED": 8,
+    "RLD. SP./ENERGY": -0.5,
     "MAX ENERGY": 4,
     "MAX HP": 100,
   },
   "LASER BATTERY": {
     "HULL DMG": 20,
     "SHIELD DMG": 15,
-    "BASE SPEED": 1.6,
-    "SPEED/ENERGY": -0.2,
+    "PROJECTILE SPEED": 1.2,
+    "RELOAD SPEED": 1.6,
+    "RLD. SP./ENERGY": -0.2,
     "MAX ENERGY": 4,
     "MAX HP": 100,
   },
   "SHIELD GENERATOR S": {
     "MAX SHIELD HP": 200,
     "SHIELD REGEN": 50,
-    "BASE SPEED": 5,
-    "SPEED/ENERGY": -0.4,
+    "RELOAD SPEED": 5,
+    "RLD. SP./ENERGY": -0.4,
     "MAX ENERGY": 4,
     "MAX HP": 100,
   },
   "SHIELD GENERATOR L": {
     "MAX SHIELD HP": 300,
     "SHIELD REGEN": 50,
-    "BASE SPEED": 8,
-    "SPEED/ENERGY": -0.2,
+    "RELOAD SPEED": 8,
+    "RLD. SP./ENERGY": -0.2,
     "MAX ENERGY": 8,
     "MAX HP": 100,
   },
@@ -66,7 +69,7 @@ export function calculateCurrentSpeed(
   ) {
     return 0;
   }
-  const baseSpeed = systemAttributes[systemType]["BASE SPEED"];
-  const speedPerEnergy = systemAttributes[systemType]["SPEED/ENERGY"];
+  const baseSpeed = systemAttributes[systemType]["RELOAD SPEED"];
+  const speedPerEnergy = systemAttributes[systemType]["RLD. SP./ENERGY"];
   return baseSpeed + currentEnergy * speedPerEnergy;
 }

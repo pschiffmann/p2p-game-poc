@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ProjectileState } from "../shared/protocol";
+import { DmgTextMap } from "./dmg-text";
 
 declare module "csstype" {
   interface Properties {
@@ -11,35 +13,62 @@ declare module "csstype" {
 }
 
 export interface ProjectileProps {
-  readonly type: "ion" | "laser" | "rocket";
+  readonly projectile: ProjectileState;
   readonly direction: "ltr" | "rtl";
-  readonly timeToImpact: number;
+  setDmgText(f: (prev: DmgTextMap) => DmgTextMap): void;
 }
 
+const typeToClassName = {
+  "ION CANNON": "ion",
+  "ROCKET LAUNCHER": "rocket",
+  "LASER BATTERY": "laser",
+} as const;
+
 const typeToBitmap = {
-  ion: "spaceships/PNG_Animations/Shots/Shot2/shot2_asset.png",
-  laser: "spaceships/PNG_Animations/Shots/Shot1/shot1_asset.png",
-  rocket: "spaceships/PNG_Animations/Shots/Shot4/shot4_5.png",
+  "ION CANNON": "spaceships/PNG_Animations/Shots/Shot2/shot2_asset.png",
+  "ROCKET LAUNCHER": "spaceships/PNG_Animations/Shots/Shot1/shot1_asset.png",
+  "LASER BATTERY": "spaceships/PNG_Animations/Shots/Shot4/shot4_5.png",
 } as const;
 
 export const Projectile: React.FC<ProjectileProps> = ({
-  type,
+  projectile,
   direction,
-  timeToImpact,
+  setDmgText,
 }) => {
   const [style] = useState(() => ({
     "--x-left": Math.random() * 74 + 366,
     "--y-left": Math.random() * 200 + 237,
     "--x-right": Math.random() * 74 + 836,
     "--y-right": Math.random() * 200 + 237,
-    "--time-to-impact": timeToImpact,
+    "--time-to-impact": projectile.timeToImpact,
   }));
+  const cls = typeToClassName[projectile.type];
+
+  useEffect(() => {
+    if (projectile.timeToImpact !== 0) return;
+    const { damageType, damangeDone } = projectile;
+    const x = direction === "ltr" ? style["--x-right"] : style["--x-left"];
+    const y = direction === "ltr" ? style["--y-right"] : style["--y-left"];
+    setDmgText((prev) => ({
+      ...prev,
+      [projectile.id]: { damageType, damangeDone, x, y },
+    }));
+    setTimeout(
+      () =>
+        setDmgText((prev) => {
+          const result = { ...prev };
+          delete result[projectile.id];
+          return result;
+        }),
+      1000
+    );
+  }, [projectile.timeToImpact]);
 
   return (
     <img
-      className={`projectile projectile--${type} projectile--${direction}`}
+      className={`projectile projectile--${cls} projectile--${direction}`}
       style={style}
-      src={typeToBitmap[type]}
+      src={typeToBitmap[projectile.type]}
     />
   );
 };

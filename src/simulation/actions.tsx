@@ -32,14 +32,14 @@ export const actions = {
     systemState.energy = Math.min(
       Math.max(systemEnergy!, 0),
       maxEnergy,
-      systemEnergy! + shipState.unusedEnergy
+      systemState.energy + shipState.unusedEnergy
     );
     updateUnusedEnergy(player);
     if (state.player1.paused || state.player2.paused) sendStateToWindow();
   },
   attack({ player, system, attackTarget }: PlayerCommand) {
     const weapon = state[player].ship[system!] as DeepWritable<WeaponState>;
-    if (weapon.energy === 0 || weapon.hp === 0) return;
+    if (weapon.hp === 0) return;
     const target = state[opponent(player)].ship[attackTarget!];
     if (target.hp === 0) return;
     weapon.target = attackTarget!;

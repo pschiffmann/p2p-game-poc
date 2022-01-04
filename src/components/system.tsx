@@ -11,22 +11,25 @@ export interface SystemProps {
   readonly type: SystemType;
   readonly hp: number;
   readonly currentEnergy: number;
-  setEnergy?(): void;
-  attack?(): void;
-  deactivate?(): void;
+  startAttackSelect?(): void;
+  cancelAttackSelect?(): void;
+  executeAttackSelect?(): void;
+  setEnergy?(energy: number): void;
 }
 
 export const System: React.FC<SystemProps> = ({
   type,
   hp,
   currentEnergy,
+  startAttackSelect,
+  cancelAttackSelect,
+  executeAttackSelect,
   setEnergy,
-  attack,
-  deactivate,
 }) => {
   const attributes = systemAttributes[type];
   const maxEnergy = attributes["MAX ENERGY"];
   const speed = calculateCurrentSpeed(type, currentEnergy);
+
   return (
     <div className="system">
       <div className="system__name">{type}</div>
@@ -35,7 +38,7 @@ export const System: React.FC<SystemProps> = ({
         <div className="system__details-popover">
           {Object.entries(attributes).map(([name, value]) => (
             <div key={name} className="system__details-attribute">
-              {name}:{" "}
+              {`${name}: `}
               {name === "BASE DODGE" || name === "DODGE/ENERGY"
                 ? `${100 * value}%`
                 : value}
@@ -63,17 +66,31 @@ export const System: React.FC<SystemProps> = ({
                 "system__energy-bar" +
                 (index <= currentEnergy ? " system__energy-bar--active" : "")
               }
+              onClick={setEnergy && (() => setEnergy(index))}
             />
           );
         })}
       </div>
-      {attack && (
-        <button className="system__action" onClick={attack}>
+      {startAttackSelect && (
+        <button className="system__action" onClick={() => startAttackSelect()}>
+          choose target
+        </button>
+      )}
+      {cancelAttackSelect && (
+        <button className="system__action" onClick={() => cancelAttackSelect()}>
+          cancel
+        </button>
+      )}
+      {hp !== 0 && executeAttackSelect && (
+        <button
+          className="system__action"
+          onClick={() => executeAttackSelect()}
+        >
           attack
         </button>
       )}
-      {deactivate && (
-        <button className="system__action" onClick={attack}>
+      {setEnergy && (
+        <button className="system__action" onClick={() => setEnergy(0)}>
           deactivate
         </button>
       )}

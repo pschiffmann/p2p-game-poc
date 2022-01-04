@@ -1,0 +1,23 @@
+.dmg-text {
+  position: absolute;
+  animation: dmg-text 1s ease-in-out both;
+
+  &--miss {
+    color: yellow;
+  }
+  &--shield {
+    color: lightblue;
+  }
+  &--hull {
+    color: darkred;
+  }
+}
+
+@keyframes dmg-text {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-8px);
+  }
+}

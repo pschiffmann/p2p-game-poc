@@ -1,3 +1,4 @@
+import { v4 as uuid } from "uuid";
 import {
   opponent,
   Player,
@@ -5,7 +6,12 @@ import {
   WeaponType,
 } from "../shared/protocol";
 import { systemAttributes } from "../shared/systems";
-import { DeepWritable, sendStateToWindow, state } from "./state";
+import {
+  DeepWritable,
+  sendStateToWindow,
+  state,
+  updateUnusedEnergy,
+} from "./state";
 
 let intervalId: number | null = null;
 
@@ -77,6 +83,7 @@ function activateWeapon(player: Player, weapon: "weapon1" | "weapon2") {
   }
 
   state.projectiles.push({
+    id: uuid(),
     type,
     targetPlayer: opponent(player),
     targetSystem: weaponState.target,
@@ -103,7 +110,10 @@ function activateShieldGenerator(player: Player) {
     shieldGeneratorState.charge += 0.1;
     return;
   }
-  state[player].ship.shieldHp += shieldGeneratorAttributes["SHIELD REGEN"];
+  state[player].ship.shieldHp = Math.min(
+    state[player].ship.shieldHp + shieldGeneratorAttributes["SHIELD REGEN"],
+    shieldGeneratorAttributes["MAX SHIELD HP"]
+  );
   shieldGeneratorState.charge = 0;
 }
 
@@ -143,6 +153,10 @@ function processProjectile(projectile: DeepWritable<ProjectileState>): boolean {
         projectileAttributes["HULL DMG"]
       );
       targetSystem.hp -= projectile.damangeDone;
+      if (targetSystem.hp === 0) {
+        targetSystem.energy = 0;
+        updateUnusedEnergy(projectile.targetPlayer);
+      }
     }
   }
   return true;

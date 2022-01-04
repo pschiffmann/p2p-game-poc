@@ -20,6 +20,7 @@
   &__systems {
     position: absolute;
     top: 16px;
+    z-index: 2;
     width: 220px;
     display: flex;
     flex-direction: column;
@@ -35,6 +36,7 @@
   &__ship-status {
     position: absolute;
     bottom: 16px;
+    z-index: 2;
     &--mine {
       left: 16px;
     }
@@ -43,11 +45,41 @@
     }
   }
 
-  &__pause {
+  &__pause-text,
+  &__game-result {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    font-size: 20px;
+    transform: translate(-50%, -50%);
+  }
+  &__game-result {
+    text-transform: uppercase;
+    &--draw {
+      color: yellow;
+    }
+    &--victory {
+      color: rgb(33, 223, 33);
+    }
+    &--draw {
+      color: darkred;
+    }
+  }
+
+  &__pause-resume {
     position: absolute;
     left: 50%;
     bottom: 40px;
+    z-index: 2;
     padding: 4px;
     transform: translateX(-50%);
+  }
+
+  &__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: #0008;
   }
 }
