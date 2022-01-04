@@ -7,9 +7,15 @@ button {
   font-family: inherit;
   font-size: inherit;
   text-transform: inherit;
+  outline: none;
 
   &:hover {
     background: #fff;
     color: #06102e;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
 }

@@ -25,6 +25,11 @@ export type SystemSlot =
   | "thrusters";
 export type WeaponSlot = "weapon1" | "weapon2";
 
+export interface PlayerLoadout {
+  readonly shipName: string;
+  readonly shipType: ShipType;
+}
+
 export interface PlayerCommand {
   readonly player: Player;
   readonly action: Action;

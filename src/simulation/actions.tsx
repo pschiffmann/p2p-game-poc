@@ -18,11 +18,15 @@ export const actions = {
   resume({ player }: PlayerCommand) {
     state[player].paused = false;
     const pausedNow = state.player1.paused || state.player2.paused;
-    if (!pausedNow) runGameLoop();
-    // Don't send game state immediately. This means a delay of 100ms + network
-    // delay between pressing resume and the game actually resuming. But
-    // otherwise animations and the simulation would de-sync by 100ms on every
-    // resume.
+    if (!pausedNow) {
+      // Don't send game state immediately. This means a delay of 100ms + network
+      // delay between pressing resume and the game actually resuming. But
+      // otherwise animations and the simulation would de-sync by 100ms on every
+      // resume.
+      runGameLoop();
+    } else {
+      sendStateToWindow();
+    }
   },
   "set-energy"({ player, system, systemEnergy }: PlayerCommand) {
     const shipState = state[player].ship;

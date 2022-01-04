@@ -3,7 +3,7 @@ import { SystemType } from "./protocol";
 export const systemAttributes = {
   "ION CANNON": {
     "HULL DMG": 10,
-    "SHIELD DMG": 40,
+    "SHIELD DMG": 60,
     "PROJECTILE SPEED": 15,
     "RELOAD SPEED": 50,
     "RLD. SP./ENERGY": -5,
@@ -23,7 +23,7 @@ export const systemAttributes = {
     "HULL DMG": 20,
     "SHIELD DMG": 15,
     "PROJECTILE SPEED": 12,
-    "RELOAD SPEED": 16,
+    "RELOAD SPEED": 22,
     "RLD. SP./ENERGY": -2,
     "MAX ENERGY": 4,
     "MAX HP": 120,
