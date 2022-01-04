@@ -26,8 +26,8 @@ const typeToClassName = {
 
 const typeToBitmap = {
   "ION CANNON": "spaceships/PNG_Animations/Shots/Shot2/shot2_asset.png",
-  "ROCKET LAUNCHER": "spaceships/PNG_Animations/Shots/Shot1/shot1_asset.png",
-  "LASER BATTERY": "spaceships/PNG_Animations/Shots/Shot4/shot4_5.png",
+  "LASER BATTERY": "spaceships/PNG_Animations/Shots/Shot1/shot1_asset.png",
+  "ROCKET LAUNCHER": "spaceships/PNG_Animations/Shots/Shot4/shot4_5.png",
 } as const;
 
 export const Projectile: React.FC<ProjectileProps> = ({
@@ -40,7 +40,7 @@ export const Projectile: React.FC<ProjectileProps> = ({
     "--y-left": Math.random() * 200 + 237,
     "--x-right": Math.random() * 74 + 836,
     "--y-right": Math.random() * 200 + 237,
-    "--time-to-impact": projectile.timeToImpact,
+    "--time-to-impact": projectile.timeToImpact / 10,
   }));
   const cls = typeToClassName[projectile.type];
 

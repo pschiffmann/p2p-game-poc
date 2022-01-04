@@ -109,3 +109,8 @@ function initShip(
 export function sendStateToWindow() {
   (self as unknown as Worker).postMessage(state);
 }
+
+// state.player2.ship.shieldGenerator.energy = 1;
+// state.player2.ship.thrusters.energy = 1;
+// state.player2.ship.shieldHp = 50;
+// updateUnusedEnergy("player2");

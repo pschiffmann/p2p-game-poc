@@ -1,15 +1,18 @@
 .dmg-text {
   position: absolute;
+  padding: 4px;
+  background: #0008;
+  font-size: 12px;
   animation: dmg-text 1s ease-in-out both;
 
   &--miss {
     color: yellow;
   }
   &--shield {
-    color: lightblue;
+    color: rgb(144, 227, 255);
   }
   &--hull {
-    color: darkred;
+    color: rgb(248, 46, 46);
   }
 }
 

@@ -91,7 +91,7 @@ export const Combat: React.FC<CombatProps> = ({
       ) : (
         <GameResult phase={gameState.phase} player={player} />
       )}
-      {(paused || gameState.phase !== "running" || selectedWeapon !== null) && (
+      {(paused || gameState.phase !== "running") && (
         <div className="combat__scrim" />
       )}
     </div>
@@ -142,6 +142,7 @@ const MyUi: React.FC<{
           type={ship.weapon1.type}
           hp={ship.weapon1.hp}
           currentEnergy={ship.weapon1.energy}
+          hasTarget={ship.weapon1.target !== null}
           startAttackSelect={
             gameOver || selectedWeapon === "weapon1"
               ? undefined
@@ -158,6 +159,7 @@ const MyUi: React.FC<{
           type={ship.weapon2.type}
           hp={ship.weapon2.hp}
           currentEnergy={ship.weapon2.energy}
+          hasTarget={ship.weapon2.target !== null}
           startAttackSelect={
             gameOver || selectedWeapon === "weapon2"
               ? undefined
@@ -185,10 +187,7 @@ const MyUi: React.FC<{
       </div>
       <ShipStatus
         className="combat__ship-status combat__ship-status--mine"
-        name={ship.name}
-        shieldHp={ship.shieldHp}
-        maxEnergy={ship.maxEnergy}
-        unusedEnergy={ship.unusedEnergy}
+        ship={ship}
       />
     </>
   );
@@ -243,12 +242,14 @@ const OpponentUi: React.FC<{
           type={ship.weapon1.type}
           hp={ship.weapon1.hp}
           currentEnergy={ship.weapon1.energy}
+          hasTarget={ship.weapon1.target !== null}
           executeAttackSelect={executeAttackSelect?.weapon1}
         />
         <System
           type={ship.weapon2.type}
           hp={ship.weapon2.hp}
           currentEnergy={ship.weapon2.energy}
+          hasTarget={ship.weapon2.target !== null}
           executeAttackSelect={executeAttackSelect?.weapon2}
         />
         <System
@@ -266,10 +267,7 @@ const OpponentUi: React.FC<{
       </div>
       <ShipStatus
         className="combat__ship-status combat__ship-status--enemy"
-        name={ship.name}
-        shieldHp={ship.shieldHp}
-        maxEnergy={ship.maxEnergy}
-        unusedEnergy={ship.unusedEnergy}
+        ship={ship}
       />
     </>
   );

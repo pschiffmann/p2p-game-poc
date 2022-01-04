@@ -17,7 +17,7 @@
   position: absolute;
   image-rendering: pixelated;
   transform: translate3d(-50%, -50%, 0);
-  animation: projectile calc(1s * var(--time-to-impact)) infinite linear both;
+  animation: projectile calc(1s * var(--time-to-impact)) ease-in both;
   animation-play-state: var(--animation-play-state);
 
   &--ion {

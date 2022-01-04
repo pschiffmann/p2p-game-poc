@@ -78,7 +78,7 @@ function activateWeapon(player: Player, weapon: "weapon1" | "weapon2") {
     weaponAttributes["RELOAD SPEED"] +
     weaponState.energy * weaponAttributes["RLD. SP./ENERGY"];
   if (weaponState.charge < requiredCharge) {
-    weaponState.charge += 0.1;
+    weaponState.charge++;
     return;
   }
 
@@ -88,7 +88,7 @@ function activateWeapon(player: Player, weapon: "weapon1" | "weapon2") {
     targetPlayer: opponent(player),
     targetSystem: weaponState.target,
     // Add 0.1 because the projectile will be processed in this tick.
-    timeToImpact: weaponAttributes["PROJECTILE SPEED"] + 0.1,
+    timeToImpact: weaponAttributes["PROJECTILE SPEED"] + 1,
   });
   weaponState.charge = 0;
 }
@@ -107,7 +107,7 @@ function activateShieldGenerator(player: Player) {
     shieldGeneratorAttributes["RELOAD SPEED"] +
     shieldGeneratorState.energy * shieldGeneratorAttributes["RLD. SP./ENERGY"];
   if (shieldGeneratorState.charge < requiredCharge) {
-    shieldGeneratorState.charge += 0.1;
+    shieldGeneratorState.charge++;
     return;
   }
   state[player].ship.shieldHp = Math.min(
@@ -131,7 +131,7 @@ function activateThrusters(player: Player) {
  * Returns `false` if this projectile is no longer needed and can be deleted.
  */
 function processProjectile(projectile: DeepWritable<ProjectileState>): boolean {
-  projectile.timeToImpact -= 0.1;
+  projectile.timeToImpact--;
   if (projectile.timeToImpact < 0) return false;
   if (projectile.timeToImpact === 0) {
     const projectileAttributes = systemAttributes[projectile.type];
@@ -156,6 +156,13 @@ function processProjectile(projectile: DeepWritable<ProjectileState>): boolean {
       if (targetSystem.hp === 0) {
         targetSystem.energy = 0;
         updateUnusedEnergy(projectile.targetPlayer);
+        const attackerShip = state[opponent(projectile.targetPlayer)].ship;
+        if (attackerShip.weapon1.target === projectile.targetSystem) {
+          attackerShip.weapon1.target = null;
+        }
+        if (attackerShip.weapon2.target === projectile.targetSystem) {
+          attackerShip.weapon2.target = null;
+        }
       }
     }
   }

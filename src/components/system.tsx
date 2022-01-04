@@ -11,6 +11,7 @@ export interface SystemProps {
   readonly type: SystemType;
   readonly hp: number;
   readonly currentEnergy: number;
+  readonly hasTarget?: boolean;
   startAttackSelect?(): void;
   cancelAttackSelect?(): void;
   executeAttackSelect?(): void;
@@ -21,6 +22,7 @@ export const System: React.FC<SystemProps> = ({
   type,
   hp,
   currentEnergy,
+  hasTarget,
   startAttackSelect,
   cancelAttackSelect,
   executeAttackSelect,
@@ -39,17 +41,19 @@ export const System: React.FC<SystemProps> = ({
           {Object.entries(attributes).map(([name, value]) => (
             <div key={name} className="system__details-attribute">
               {`${name}: `}
-              {name === "BASE DODGE" || name === "DODGE/ENERGY"
+              {name.includes("DODGE")
                 ? `${100 * value}%`
+                : name.includes("SPEED") || name.includes("RLD. SP.")
+                ? `${value / 10}s`
                 : value}
             </div>
           ))}
         </div>
       </div>
       <div className="system__health">HP: {hp}</div>
-      {speed !== 0 && (
-        <div className="system__charge" style={{ "--speed": `${speed}s` }}>
-          {speed}s
+      {speed !== 0 && hasTarget !== false && (
+        <div className="system__charge" style={{ "--speed": `${speed / 10}s` }}>
+          {speed / 10}s
         </div>
       )}
       <div
