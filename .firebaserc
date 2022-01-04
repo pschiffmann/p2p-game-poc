@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "pschiffmann-playground"
+  },
+  "targets": {
+    "pschiffmann-playground": {
+      "hosting": {
+        "main": [
+          "p2p-game-poc-pschiffmann"
+        ]
+      }
+    }
+  }
+}

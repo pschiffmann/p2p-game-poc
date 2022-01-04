@@ -25,7 +25,7 @@ export default {
     secure: true,
   },
   buildOptions: {
-    out: "qvs-copy-tool",
+    out: "p2p-game-poc",
     baseUrl: "./",
   },
 };
