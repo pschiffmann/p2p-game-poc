@@ -7,6 +7,9 @@ export type ExecuteCommand = (command: Omit<PlayerCommand, "player">) => void;
 export const myConnectionId = uuid();
 
 const peer: Peer = new (window as any).Peer(myConnectionId);
+for (const event of ["close", "error", "disconnected"]) {
+  peer.on(event, console.error);
+}
 
 export function hostGame(
   setGameState: (gameState: GameState) => void
@@ -29,6 +32,9 @@ export function hostGame(
           worker.postMessage({ ...command, player: "player2" });
         });
       });
+      for (const event of ["close", "error"]) {
+        connection.on(event, console.error);
+      }
     });
   });
 }

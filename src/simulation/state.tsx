@@ -26,7 +26,7 @@ export const state: DeepWritable<GameState> = {
     }),
   },
   player2: {
-    paused: false,
+    paused: true,
     ship: initShip("b", "MC BOATFACE", 16, {
       weapon1: "LASER BATTERY",
       weapon2: "LASER BATTERY",
