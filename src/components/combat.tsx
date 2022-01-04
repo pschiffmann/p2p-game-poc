@@ -136,6 +136,7 @@ const MyUi: React.FC<{
         className="combat__ship combat__ship--mine"
         type={ship.type}
         name={ship.name}
+        shield={ship.shieldHp > 0}
       />
       <div className="combat__systems combat__systems--mine">
         <System
@@ -236,6 +237,7 @@ const OpponentUi: React.FC<{
         className="combat__ship combat__ship--enemy"
         type={ship.type}
         name={ship.name}
+        shield={ship.shieldHp > 0}
       />
       <div className="combat__systems combat__systems--enemy">
         <System

@@ -19,6 +19,13 @@
     transform: rotateZ(270deg);
     transform-origin: top left;
   }
+
+  &__shield {
+    position: absolute;
+    background: rgb(144, 227, 255);
+    border-radius: 50%;
+    opacity: 0.5;
+  }
 }
 
 .ship-a {
@@ -27,6 +34,12 @@
     left: 288px;
     background: #331b2c;
   }
+  .ship__shield {
+    top: 90px;
+    left: 153px;
+    width: 200px;
+    height: 338px;
+  }
 }
 
 .ship-b {
@@ -34,5 +47,11 @@
     top: 294px;
     left: 334px;
     background: #010a08;
+  }
+  .ship__shield {
+    top: -7px;
+    left: 65px;
+    width: 376px;
+    height: 523px;
   }
 }
