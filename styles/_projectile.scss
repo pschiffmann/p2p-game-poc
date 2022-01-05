@@ -37,20 +37,18 @@
 @keyframes projectile {
   from {
     transform: translate3d(
-      calc(var(--x-start) - 50%),
-      calc(var(--y-start) - 50%),
-      0
-    );
-    // left: var(--x-start);
-    // top: var(--y-start);
+        calc(var(--x-start) - 50%),
+        calc(var(--y-start) - 50%),
+        0
+      )
+      rotateZ(var(--rotation));
   }
   to {
     transform: translate3d(
-      calc(var(--x-end) - 50%),
-      calc(var(--y-end) - 50%),
-      0
-    );
-    // left: var(--x-end);
-    // top: var(--y-end);
+        calc(var(--x-end) - 50%),
+        calc(var(--y-end) - 50%),
+        0
+      )
+      rotateZ(var(--rotation));
   }
 }
