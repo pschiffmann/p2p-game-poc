@@ -11,7 +11,15 @@ export class Renderer {
 
   viewportPosition = new Vec2d(0, 0);
 
-  readonly objects: RenderObject[] = [];
+  readonly objects = new Set<RenderObject>();
+
+  readonly images = new Map<string, CanvasImageSource>();
+
+  async loadImage(name: string, path: string) {
+    const response = await fetch(path);
+    const blob = await response.blob();
+    this.images.set(name, await createImageBitmap(blob));
+  }
 
   /**
    * Renders all `objects` onto `ctx`.
@@ -20,10 +28,11 @@ export class Renderer {
     this.ctx.resetTransform();
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     for (const object of this.objects) {
+      const img = this.images.get(object.imgName);
+      if (!img) continue;
       drawImageScaleRotate(
         this.ctx,
-        object.img,
-
+        img,
         object.physics.p.x - this.viewportPosition.x,
         this.canvas.height - (object.physics.p.y - this.viewportPosition.y),
         object.scale,
@@ -34,7 +43,7 @@ export class Renderer {
 }
 
 export interface RenderObject {
-  readonly img: CanvasImageSource;
+  readonly imgName: string;
   readonly scale: number;
   readonly physics: PhysicsObject;
 }

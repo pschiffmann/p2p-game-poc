@@ -16,12 +16,19 @@ export class Vec2d {
    */
   get rotation(): number {
     const angle = Math.acos(this.x / this.length);
-    return angle;
     return this.y > 0 ? angle : 2 * Math.PI - angle;
   }
 
   add(other: Vec2d): Vec2d {
     return new Vec2d(this.x + other.x, this.y + other.y);
+  }
+
+  subtract(other: Vec2d): Vec2d {
+    return new Vec2d(this.x - other.x, this.y - other.y);
+  }
+
+  multiply(length: number): Vec2d {
+    return new Vec2d(this.x * length, this.y * length);
   }
 
   toString() {

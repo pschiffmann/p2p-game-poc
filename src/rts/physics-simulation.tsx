@@ -92,7 +92,7 @@ export class PhysicsSimulation {
 
   private update(object: PhysicsObject) {
     object.mv = clamp(object.mv + object.ma, 0, object.mvMax);
-    object.rv = clamp(object.rv + object.ra, 0, object.rvMax);
+    object.rv = clamp(object.rv + object.ra, -object.rvMax, object.rvMax);
     object.r = (object.r + object.rv) % (Math.PI * 2);
     object.p = object.p.add(Vec2d.fromAngleAndLength(object.r, object.mv));
   }

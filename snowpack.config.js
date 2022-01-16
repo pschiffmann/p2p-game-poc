@@ -4,7 +4,7 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 export default {
   optimize: {
-    entrypoints: ["main.js", "simulation/main.js"],
+    entrypoints: ["main.js", "simulation/main.js", "rts/main.js"],
     bundle: true,
     minify: false,
     target: "es2020",
